@@ -58,7 +58,7 @@ def findipv6(fqdn):
 def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 	'''
 		verbose: print debug output
-		maxtime: max time in seconds to monitor speedtest 
+		maxtime: max time in seconds to monitor speedtest
 		forceipv4: force speed test over IPv4
 		forceipv6: force speed test over IPv6
  	'''
@@ -72,7 +72,7 @@ def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 	response = urlresult.read()
 	for line in response.split('\n'):
 		# We're looking for a line like
-		#           <script src="/app-40647a.js"></script> 
+		#           <script src="/app-40647a.js"></script>
 		if line.find('script src') >= 0:
 			#print line
 			jsname = line.split('"')[1]	# At time of writing: '/app-40647a.js'
@@ -82,7 +82,7 @@ def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 	url = 'https://fast.com' + jsname
 	if verbose: print "javascript url is", url
 	urlresult = urllib.urlopen(url)
-	allJSstuff = urlresult.read()	# this is a obfuscated Javascript file 
+	allJSstuff = urlresult.read()	# this is a obfuscated Javascript file
 	'''
 	# OLD STUFF ... beautiful, but needs the js-beautifier module, which was a non-stardard requirement
 	res = jsbeautifier.beautify(allJSstuff)	# ... so un-obfuscate it
@@ -117,7 +117,7 @@ def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 		ipv4 = findipv4('api.fast.com')
 		baseurl = 'http://' + ipv4 + '/'	# HTTPS does not work IPv4 addresses, thus use HTTP
 	elif forceipv6:
-		# force IPv6 
+		# force IPv6
 		ipv6 = findipv6('api.fast.com')
 		baseurl = 'http://[' + ipv6 + ']/'
 
@@ -162,7 +162,7 @@ def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 	    threads[i].daemon=True
 	    threads[i].start()
 
-	# Monitor the amount of bytes (and speed) of the threads 
+	# Monitor the amount of bytes (and speed) of the threads
 	time.sleep(1)
 	sleepseconds = 3	# 3 seconds sleep
 	lasttotal = 0
@@ -204,7 +204,7 @@ def fast_com(verbose=False, maxtime=15, forceipv4=False, forceipv6=False):
 ######## MAIN #################
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
 	print "let's speed test:"
 	print "\nSpeed test, without logging:"
 	print fast_com()
